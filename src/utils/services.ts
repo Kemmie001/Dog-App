@@ -6,7 +6,7 @@ export function getAllBreeds() {
 export function getRandomDogImages(amount: any) {
   return http.get(`breeds/image/random/${amount}`);
 }
-export function getDogImagesByBreed(breed: any, amount: any) {
+export function getDogImagesByBreed(breed: any) {
   return http.get(`/breed/${breed}/images`);
 }
 export function subBreedImages(breed: any, sub: any, amount: any) {
