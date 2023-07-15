@@ -1,10 +1,15 @@
 import { createStore } from "vuex";
-import { getAllBreeds, getRandomDogImages } from "../utils/services";
+import {
+  getAllBreeds,
+  getRandomDogImages,
+  getDogImagesByBreed,
+} from "../utils/services";
 
 export default createStore({
   state: {
     breeds: [],
     dogs: [],
+    filteredDogs: [],
     loading: false,
   },
   getters: {
@@ -14,6 +19,7 @@ export default createStore({
     setBreedsList: (state, breed) => (state.breeds = breed),
     setGettingDogs: (state, status) => (state.loading = status),
     setDogs: (state, dogs) => (state.dogs = dogs),
+    setFilteredDogs: (state, dogs) => (state.filteredDogs = dogs),
   },
   actions: {
     async getBreeds({ commit }) {
@@ -39,8 +45,42 @@ export default createStore({
         // eslint-disable-next-line no-empty
       } catch (error) {
       } finally {
+        context.commit("setFilteredDogs", [...context.state.dogs]);
         context.commit("setGettingDogs", false);
       }
+    },
+    async getABreedImages(context, payload) {
+      try {
+        context.state.loading = true;
+        const { data } = await getDogImagesByBreed(payload.breed);
+        context.commit("setFilteredDogs", [
+          ...context.state.filteredDogs,
+          ...data.message,
+        ]);
+        // eslint-disable-next-line no-empty
+      } catch (error) {
+      } finally {
+        context.state.loading = false;
+      }
+    },
+    filterByBreeds(context, payload) {
+      if (payload.length <= 0) {
+        context.commit("setFilteredDogs", [...context.state.dogs]);
+        return;
+      }
+      context.state.filteredDogs = [];
+      payload.forEach((link: string) => {
+        const result = context.state.dogs.filter((img: string) => {
+          return img.toLowerCase().includes(link.toLowerCase());
+        });
+        if (result.length < 50) {
+          context.dispatch("getABreedImages", { breed: link });
+        }
+        context.commit("setFilteredDogs", [
+          ...context.state.filteredDogs,
+          ...result,
+        ]);
+      });
     },
   },
   modules: {},
