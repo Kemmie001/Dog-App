@@ -44,6 +44,7 @@ export default createStore({
         }
         // eslint-disable-next-line no-empty
       } catch (error) {
+        console.log(error);
       } finally {
         context.commit("setFilteredDogs", [...context.state.dogs]);
         context.commit("setGettingDogs", false);
@@ -59,6 +60,7 @@ export default createStore({
         ]);
         // eslint-disable-next-line no-empty
       } catch (error) {
+        console.log(error);
       } finally {
         context.state.loading = false;
       }
