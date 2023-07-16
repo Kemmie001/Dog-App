@@ -29,7 +29,15 @@ img[lazy="loaded"] {
   transition: transform 1s ease-in-out;
 }
 img[lazy="loading"] {
-  animation: skeleton-loading 1.3s linear infinite alternate;
+  animation: shimmer 1.4s linear infinite alternate;
+}
+@keyframes shimmer {
+  0% {
+    background-color: hsl(200, 20%, 80%);
+  }
+
+  100% {
+  }
 }
 img[lazy="loaded"]:hover {
   transform: scale(0.95);
