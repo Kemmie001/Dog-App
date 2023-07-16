@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 <template>
   <div
-    class="bg-white fixed w-full shadow-sm py-4 px-5 md:px-10 flex justify-between items-center"
+    class="bg-white fixed z-10 w-full shadow-sm py-4 px-4 md:px-10 flex justify-between items-center"
   >
     <div class="flex gap-5 items-center">
       <div class="">
@@ -17,7 +17,12 @@
         name=""
         id=""
       /> -->
-      <a href="" class="px-4 py-2 text-white bg-primary rounded-md">Github</a>
+      <a
+        href="https://github.com/Kemmie001/Dog-App"
+        target="_blank"
+        class="px-4 py-2 text-white bg-primary rounded-md"
+        >Github</a
+      >
     </div>
   </div>
 </template>
