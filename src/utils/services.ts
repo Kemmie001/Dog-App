@@ -1,4 +1,8 @@
-import { http } from "./https";
+import axios from "axios";
+
+const http = axios.create({
+  baseURL: "https://dog.ceo/api/",
+});
 
 export function getAllBreeds() {
   return http.get("breeds/list/all");
