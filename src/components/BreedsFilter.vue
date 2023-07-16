@@ -17,7 +17,7 @@ const searchBreed = computed(() => {
 //   newArray.value.push(searchInput);
 //   store.dispatch("filterByBreeds", newArray.value);
 // };
-const emit = defineEmits(["update:selectedBreeds"]);
+const emit = defineEmits(["update:selectedBreeds", "closeFilter"]);
 const addselect = (selectBreed: Array<string>) => {
   emit("update:selectedBreeds", selectBreed);
 };
@@ -36,7 +36,7 @@ watch(
 
 <template>
   <div
-    class="bg-white shadow-md h-[60vh] lg:h-full border border-neutral-bg py-4 px-3"
+    class="bg-white z-20 top-16 shadow-md h-[60vh] lg:h-full border border-neutral-bg py-4 px-3"
   >
     <div class="flex justify-between border-b border-neutral items-center">
       <h3 class="text-dark font-semibold text-md py-2">Filter</h3>
@@ -55,7 +55,7 @@ watch(
         v-model="searchInput"
       />
     </div>
-    <div class="flex flex-col gap-2 h-[60%] lg:h-full overflow-scroll">
+    <div class="flex flex-col gap-2 h-[50%] lg:h-full overflow-scroll">
       <div
         class="flex items-center justify-center my-5"
         v-if="!searchBreed.length"
@@ -75,11 +75,13 @@ watch(
           />
         </div>
       </div>
-      <span
-        class="bg-primary lg:hidden text-white flex items-center justify-center px-4 py-2 rounded-md"
-        >Close filter</span
-      >
     </div>
+    <button
+      class="mt-4 lg:hidden ml-auto text-red-600 flex items-center justify-end py-2 rounded-md"
+      @click="$emit('closeFilter')"
+    >
+      Close filter
+    </button>
   </div>
 </template>
 
