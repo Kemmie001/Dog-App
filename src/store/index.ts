@@ -4,6 +4,9 @@ import {
   getRandomDogImages,
   getDogImagesByBreed,
 } from "../utils/services";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 export default createStore({
   state: {
@@ -14,6 +17,7 @@ export default createStore({
   },
   getters: {
     breedsList: (state) => state.breeds,
+    dogsList: (state) => state.dogs,
   },
   mutations: {
     setBreedsList: (state, breed) => (state.breeds = breed),
@@ -40,10 +44,10 @@ export default createStore({
             const { data } = await getRandomDogImages(50);
             context.commit("setDogs", [...context.state.dogs, ...data.message]);
           }
-          console.log("kemi:", context.state.dogs.length);
         }
         // eslint-disable-next-line no-empty
       } catch (error) {
+        router.push({ name: "NotFound" });
         console.log(error);
       } finally {
         context.commit("setFilteredDogs", [...context.state.dogs]);
