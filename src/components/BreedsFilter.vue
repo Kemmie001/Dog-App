@@ -36,7 +36,7 @@ watch(
 
 <template>
   <div
-    class="bg-white z-20 top-16 shadow-md h-[60vh] lg:h-full border border-neutral-bg py-4 px-3"
+    class="bg-white z-20 md:top-16 shadow-md h-[60vh] lg:h-full border border-neutral-bg py-4 px-3"
   >
     <div class="flex justify-between border-b border-neutral items-center">
       <h3 class="text-dark font-semibold text-md py-2">Filter</h3>
