@@ -3,19 +3,34 @@ import BreedsFilter from "@/components/BreedsFilter.vue";
 import DogImage from "@/components/DogImage.vue";
 import SkeletonLoader from "@/components/SkeletonLoader.vue";
 import { computed, onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 const store = useStore();
 const images = computed(() => {
   return store.state.filteredDogs;
 });
+
 onMounted(() => {
   store.dispatch("getBreeds");
-  store.dispatch("getDogImages", 120);
+  if (!images.value.length) {
+    store.dispatch("getDogImages", 120);
+  }
 });
 const showMobileFilter = ref(false);
 const selectedBreeds = ref<Array<string>>([]);
 const getSelectedBreeds = (breed: Array<string>) => {
   selectedBreeds.value = breed;
+};
+const router = useRouter();
+const selectDog = (img: any) => {
+  const imageLink = img.split("/");
+  router.push({
+    name: "dog",
+    params: {
+      slug: imageLink[4],
+      slug_id: imageLink[5].slice(0, -4),
+    },
+  });
 };
 </script>
 
@@ -42,7 +57,7 @@ const getSelectedBreeds = (breed: Array<string>) => {
           </p>
           <button
             @click="showMobileFilter = true"
-            class="border rounded-md py-2 px-2 border-neutral-bg text-dark text-sm"
+            class="border block lg:hidden rounded-md py-2 px-2 border-neutral-bg text-dark text-sm"
           >
             Apply Filter
           </button>
@@ -72,6 +87,7 @@ const getSelectedBreeds = (breed: Array<string>) => {
               :key="index"
               :image="img"
               class="focus:outline focus:outline-primary focus:outline-4"
+              @click="selectDog(img)"
             />
           </div>
           <div
