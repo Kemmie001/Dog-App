@@ -8,7 +8,6 @@ const props = defineProps(["image"]);
   <div class="aspect-square">
     <img
       v-lazy="props.image"
-      loading="lazy"
       lazy="loaded"
       alt="Dog"
       class="w-full h-full object-cover rounded-md"
