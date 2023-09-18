@@ -15,6 +15,11 @@ const router = createRouter({
       component: () => import("../views/ErrorView.vue"),
     },
     {
+      path: "/carousel",
+      name: "carousel",
+      component: () => import("../views/CustomCarousel.vue"),
+    },
+    {
       path: "/dog/:slug/:slug_id",
       name: "dog",
       // route level code-splitting
